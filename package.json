@@ -1,0 +1,26 @@
+{
+  "name": "solventium",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Réplica en React del sitio solventium.es — instaladores de puntos de recarga y energías renovables en Madrid.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/prerender.mjs",
+    "build:only": "vite build",
+    "preview": "vite preview",
+    "images": "node scripts/optimize-images.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@vitejs/plugin-react": "^4.4.1",
+    "sharp": "^0.34.2",
+    "tailwindcss": "^4.1.7",
+    "vite": "^6.3.5"
+  }
+}

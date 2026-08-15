@@ -1,0 +1,318 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Archivo Variable, autoalojada. Grotesca ancha y casi geométrica: es la familia
+   que responde al trazo del logotipo, donde la pila del sistema no se parecía.
+   Dos subconjuntos para no descargar alfabetos que el sitio no usa.
+   ───────────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-ext-var.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  /* ── Color ──────────────────────────────────────────────────────────────────
+     Cada rojo tiene un papel. Antes uno solo hacía botones, precios, checks,
+     viñetas, rótulos y resultados a la vez, y el botón dejaba de destacar.     */
+  --color-brand-50: #fff1f1; /* fondo de aviso                                  */
+  --color-brand-100: #ffdcdc; /* borde suave                                    */
+  --color-brand: #ca0000; /* acción sobre claro · 5,98:1 sobre blanco           */
+  --color-brand-600: #a80000; /* hover y pulsado                                */
+  --color-brand-on-dark: #ff453a; /* todo rojo sobre oscuro · 4,95:1 sobre ink  */
+
+  --color-ink: #1d1d1d; /* dato y énfasis                                       */
+  --color-ink-800: #2a2a2a; /* campo de formulario en superficie oscura         */
+  --color-body: #333333;
+  --color-muted: #6b6b6b; /* sube desde #7a7a7a: 5,33:1 sobre blanco            */
+  --color-line: #e6e6e6;
+  --color-surface: #f7f7f7;
+
+  /* Sostenibilidad: solo reforestación, renovables y compromiso ambiental.
+     Nunca en botones ni en acciones.                                           */
+  --color-eco-100: #e6f3ec;
+  --color-eco-500: #1e8a56;
+  --color-eco-700: #14603c;
+
+  --color-success: #15803d;
+  --color-success-on-dark: #4ade80;
+  --color-warning: #b45309;
+
+  /* ── Tipografía ─────────────────────────────────────────────────────────── */
+  --font-sans:
+    'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Seis escalones con razones reales: 76 / 48 / 34 / 22 / 17 / 15 px a 1440.  */
+  --text-display: clamp(2.6rem, 6.4vw, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--font-weight: 700;
+
+  --text-h1: clamp(2rem, 4vw, 3rem);
+  --text-h1--line-height: 1.06;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.6rem, 2.6vw, 2.125rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 700;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.7;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+
+  /* ── Ritmo vertical ─────────────────────────────────────────────────────────
+     Tres escalones ligados a la jerarquía, en lugar de un único valor para todo. */
+  --spacing-tight: clamp(2.5rem, 4vw, 3.5rem); /* secciones hermanas             */
+  --spacing-section: clamp(4rem, 7vw, 6.5rem); /* por defecto                    */
+  --spacing-chapter: clamp(6rem, 10vw, 9rem); /* entre bloques temáticos         */
+
+  --shadow-card: 0 10px 30px rgb(0 0 0 / 0.08);
+  --shadow-card-hover: 0 18px 45px rgb(0 0 0 / 0.16);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-body text-[color:var(--color-body)] antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold text-[color:var(--color-ink)];
+    text-wrap: balance;
+  }
+
+  /* La cabecera fija mide 86 px: sin esto, cualquier salto a un ancla deja el
+     destino debajo de ella. */
+  :target,
+  [id] {
+    scroll-margin-top: 100px;
+  }
+
+  /* Foco único que funciona sobre las dos familias de fondo: el aro blanco se ve
+     sobre foto y oscuro, el halo rojo sobre blanco. */
+  :focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 0;
+    box-shadow: 0 0 0 5px var(--color-brand);
+    border-radius: 3px;
+  }
+
+  ::selection {
+    @apply bg-[color:var(--color-brand)] text-white;
+  }
+
+  /* Cifras alineadas en columna allí donde se comparan. */
+  .tabular,
+  th,
+  td {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold
+      tracking-wide transition-all duration-200;
+    /* 48 px mínimos de zona táctil: antes eran 40 exactos. */
+    min-height: 48px;
+  }
+
+  .btn-primary {
+    @apply bg-[color:var(--color-brand)] text-white hover:bg-[color:var(--color-brand-600)]
+      hover:shadow-[0_8px_24px_rgba(202,0,0,0.35)];
+  }
+
+  .btn-ghost {
+    @apply border border-white/70 text-white hover:border-white hover:bg-white
+      hover:text-[color:var(--color-ink)];
+  }
+
+  .btn-dark {
+    @apply bg-[color:var(--color-ink)] text-white hover:bg-black;
+  }
+
+  .btn-primary:disabled,
+  .btn-dark:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  /* Rótulos fuera de la escala: 12 px, versales, opacos sobre foto. */
+  .eyebrow {
+    @apply text-xs font-bold tracking-[0.14em] text-[color:var(--color-brand)] uppercase;
+  }
+
+  .eyebrow-on-dark {
+    @apply text-xs font-bold tracking-[0.14em] text-white uppercase;
+  }
+
+  .section {
+    padding-block: var(--spacing-section);
+  }
+
+  .section-chapter {
+    padding-block: var(--spacing-chapter);
+  }
+
+  .section-tight {
+    padding-block: var(--spacing-tight);
+  }
+
+  /* ── Velos ────────────────────────────────────────────────────────────────
+     El direccional deja media foto con color en lugar de apagarla entera.     */
+  .scrim-flat {
+    background: rgb(0 0 0 / 0.5);
+  }
+
+  .scrim-bottom {
+    background: linear-gradient(to top, rgb(0 0 0 / 0.9), rgb(0 0 0 / 0.35) 55%, rgb(0 0 0 / 0.15));
+  }
+
+  .scrim-side {
+    background: linear-gradient(
+      100deg,
+      rgb(29 29 29 / 0.92),
+      rgb(29 29 29 / 0.75) 45%,
+      rgb(29 29 29 / 0.15)
+    );
+  }
+
+  /* ── Contenido editorial ──────────────────────────────────────────────────
+     Medida de 38rem: 72-76 caracteres en castellano, frente a los 111 de antes. */
+  .prose-solventium {
+    max-width: 38rem;
+  }
+
+  .prose-solventium > figure,
+  .prose-solventium > .prose-wide {
+    max-width: none;
+  }
+
+  /* Tres niveles distinguidos por más de una vía, no solo por el tamaño. */
+  .prose-solventium h2 {
+    @apply mt-20 mb-5 text-h2;
+    position: relative;
+  }
+  .prose-solventium h2::before {
+    content: '';
+    @apply absolute -top-6 left-0 block h-[3px] w-10 bg-[color:var(--color-brand)];
+  }
+  .prose-solventium h3 {
+    @apply mt-12 mb-3 text-h3;
+  }
+  .prose-solventium h4 {
+    @apply mt-8 mb-2 text-xs font-bold tracking-[0.06em] text-[color:var(--color-muted)] uppercase;
+  }
+  .prose-solventium p {
+    @apply mb-5 text-body text-[color:var(--color-body)];
+  }
+  .prose-solventium ul,
+  .prose-solventium ol {
+    @apply mb-6 space-y-2 pl-1;
+  }
+  .prose-solventium li {
+    @apply relative pl-6 leading-[1.75];
+  }
+  .prose-solventium ul li::before {
+    content: '';
+    @apply absolute top-[0.65em] left-0 h-2 w-2 rounded-full bg-[color:var(--color-brand)];
+  }
+  .prose-solventium ol {
+    counter-reset: item;
+  }
+  .prose-solventium ol li {
+    counter-increment: item;
+  }
+  .prose-solventium ol li::before {
+    content: counter(item) '.';
+    @apply absolute left-0 font-bold text-[color:var(--color-brand)];
+  }
+  .prose-solventium strong {
+    @apply font-bold text-[color:var(--color-ink)];
+  }
+  .prose-solventium a {
+    @apply font-semibold text-[color:var(--color-brand)] underline underline-offset-2;
+  }
+
+  /* ── Campos de formulario ─────────────────────────────────────────────────
+     16 px en móvil: por debajo, Safari en iOS amplía la página al enfocar y no
+     deshace el zoom al salir.                                                  */
+  .field {
+    @apply w-full rounded-lg border px-4 text-base transition-colors sm:text-sm;
+    min-height: 52px;
+    padding-block: 0.875rem;
+  }
+
+  .field-light {
+    @apply border-[color:var(--color-line)] bg-white text-[color:var(--color-ink)]
+      placeholder:text-black/40 focus:border-[color:var(--color-brand)];
+  }
+
+  .field-dark {
+    @apply border-white/15 bg-[color:var(--color-ink-800)] text-white placeholder:text-white/40
+      focus:border-[color:var(--color-brand-on-dark)];
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-shadow-hero {
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

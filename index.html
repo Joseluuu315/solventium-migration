@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/images/rayo-solventium.svg" />
+
+    <!-- Tipografía autoalojada: sin salto a un dominio ajeno antes de pintar -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/archivo-latin-var.woff2"
+      crossorigin
+    />
+
+    <!-- El hero vive en un módulo JS, así que sin esto no se descubre hasta que
+         baja y se ejecuta el bundle: HTML → JS → React → petición -->
+    <link
+      rel="preload"
+      as="image"
+      fetchpriority="high"
+      href="/images/opt/Solventiumhero1-1920.avif"
+      imagesrcset="/images/opt/Solventiumhero1-480.avif 480w, /images/opt/Solventiumhero1-960.avif 960w, /images/opt/Solventiumhero1-1440.avif 1440w, /images/opt/Solventiumhero1-1920.avif 1920w"
+      imagesizes="100vw"
+      type="image/avif"
+    />
+
+    <title>▷ Instalación de Puntos de Recarga en Madrid | Solventium</title>
+    <meta
+      name="description"
+      content="Empresa especializada en instalación de puntos de recarga para coches eléctricos en Madrid. Soluciones para viviendas, empresas, comunidades y parkings. Subvenciones disponibles."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
