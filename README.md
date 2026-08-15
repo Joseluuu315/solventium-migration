@@ -16,15 +16,26 @@ npm run dev
 El sitio queda en `http://localhost:5173`. Para compilar a producción, `npm run build`; para
 revisar el resultado compilado, `npm run preview`.
 
+Al compilar se prerenderizan las 43 rutas a HTML estático, así que el resultado sigue siendo
+un sitio de ficheros planos: `npm run build` encadena `vite build` y `scripts/prerender.mjs`.
+Para compilar sin ese paso, `npm run build:only`.
+
 ## Estructura
 
 ```
-public/images/      115 imágenes descargadas del sitio original
+public/
+  fonts/            Archivo Variable autoalojada (35 kB el subconjunto latino)
+  images/           115 imágenes del sitio original
+  images/opt/       Variantes AVIF y WebP en 480/960/1440/1920, generadas por script
+scripts/
+  optimize-images.mjs   Genera las variantes y el manifiesto  (npm run images)
+  prerender.mjs         Escribe el HTML de cada ruta tras el build
 src/
-  components/       Header, Footer, formularios, acordeón, tarjetas, iconos SVG
+  components/       Header, Footer, formularios, Picture, acordeón, tarjetas, iconos SVG
   context/          Carrito de compra (React Context + localStorage)
   data/             Todo el contenido, separado del maquetado
   pages/            Una página por ruta
+  entry-ssr.jsx     Punto de entrada del prerenderizado
 ```
 
 El contenido vive en `src/data`, no en los componentes: textos, precios, especificaciones,
